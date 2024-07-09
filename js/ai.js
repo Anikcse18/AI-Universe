@@ -41,17 +41,17 @@ const displayAI = (ai_details) => {
                         <hr class="">
                         <div class="flex items-center justify-between">
                             <div class="space-y-3 mt-2">
-                                <h2 class="card-title">Shoes!</h2>
+                                <h2 class="card-title">${ai_details.name}</h2>
                                 <p class="flex gap-2 items-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
                                     </svg>
-                                    10/11/2024</p>
+                                ${ai_details.published_in}</p>
 
 
                             </div>
-                            <button class=" bg-red-100 rounded-full p-1">
+                            <button class=" bg-red-100 hover:bg-red-300  rounded-full p-1" onclick = "showdetails('${ai_details.id}');">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="size-6">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -69,4 +69,18 @@ const displayAI = (ai_details) => {
       get_Ai_Caart.appendChild(creat_Ai_div);
     }
   });
+};
+
+const showdetails = async (ai_id) => {
+  const res = await fetch(
+    `https://openapi.programming-hero.com/api/ai/tool/${ai_id}`
+  );
+  const data = await res.json();
+  const ai_features = data.data;
+  showmodals_display(ai_features);
+};
+//modals box
+const showmodals_display = (ai_features) => {
+  ai_details_modals.showModal();
+  console.log(ai_features);
 };
